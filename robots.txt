@@ -1,1 +1,1 @@
-Sitemap: https://alistairwgillespie.github.io/blog/sitemap.xml
+Sitemap: https://alistairgillespie.io/blog/sitemap.xml
