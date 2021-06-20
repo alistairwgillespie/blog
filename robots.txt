@@ -1,1 +1,1 @@
-Sitemap: https://alistairgillespie.io/sitemap.xml
+Sitemap: http://alistairgillespie.io/sitemap.xml
