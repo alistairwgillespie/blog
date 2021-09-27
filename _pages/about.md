@@ -4,7 +4,6 @@ title: About Me
 permalink: /about/
 ---
 
-# About
 I am a Senior Manager and Data Scientist working for EY Cyber Security. I hold a double Bachelor of Computer Science and Commerce, majoring in Computation and Web Technologies, from UWA. 
 
 I started my career building websites and as founding CTO of Mandarin Minds where I led the development of an elearning platform. I then went on to establish my own digital media business, Howling Web, where I designed and built bespoke websites for a range of businesses. Then in 2015 I joined EY and made a home for myself in the Cyber Security practice working across a range of projects for some of Australia's leading corporations including: 
