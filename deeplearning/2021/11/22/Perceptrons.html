@@ -125,7 +125,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's start with one of, if not, the earliest form of a neural network - the perceptron. It make's sense to start here given modern day neural networks evolved from this point. The perceptron was inspired by neurons in the brain, the idea being that given a set of inputs, a neuron fires with an output. So how does it work? Let's visualise it first:</p>
-<center><img src="../images/perceptron.png" width="300" /></center><p>Here we can see a perceptron takes a set of binary inputs, $x_1,x_2,...,x_j$, and multiplies each input by an assigned weight $w_1, w_2 \text{,...,} w_j$. Each input's weight is based on importance; the larger the weight, the greater the importance of the input. To represent this algebraically, we get the following:</p>
+<p><img src="/images/copied_from_nb/perceptrons_imgs/perceptron.png" alt="Perceptron" /></p>
+<p>Here we can see a perceptron takes a set of binary inputs, $x_1,x_2,...,x_j$, and multiplies each input by an assigned weight $w_1, w_2 \text{,...,} w_j$. Each input's weight is based on importance; the larger the weight, the greater the importance of the input. To represent this algebraically, we get the following:</p>
 <p>
 $$ y = \sum_j w_jx_j$$
 </p>
@@ -147,7 +148,7 @@ $$
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I think at this juncture we can cement this knowledge with an example. Let's use a perceptron as a decision making model for whether we go watch the West Coast Eagles versus North Melbourne Kangaroos. Our model will take in three binary inputs:</p>
+<p>I think at this juncture we can cement this knowledge with an example. Let's use a perceptron as a decision making model for deciding whether we go watch the West Coast Eagles versus North Melbourne Kangaroos. Our model will take in three binary inputs:</p>
 <ol>
 <li>Is it raining or not?</li>
 <li>Are any friends or family available to join us?</li>
@@ -160,7 +161,8 @@ $$\ 6*1 + 4*0 + 2*0 = 6$$
 </p>
 <p>6 is greater than my threshold, we get a 1 as output, and I'm heading to the footy! The model clearly appreciates sunny weather and the availability of company, if neither are true, it's likely this model will suggest I stay home. I'm a little more passionate about the Eagles than this example let's on but you get the gist. It's important to note that by changing the weights and threshold, we will get different models of decision making.</p>
 <p>Perceptrons provide a building block for thinking about and building multi-layer networks. Like a web of lego, we can leverage perceptrons to build multi-layered models, like so:</p>
-<center><img src="../images/multi_layer_network.png" width="300" /></center>
+<p><img src="/images/copied_from_nb/perceptrons_imgs/multi_layer_network.png" alt="Multi-layer Network" /></p>
+
 </div>
 </div>
 </div>
