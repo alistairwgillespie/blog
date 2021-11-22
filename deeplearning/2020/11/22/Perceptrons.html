@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deep learning from scratch … again | Alistair Gillespie</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Deep learning from scratch … again" />
+<meta name="author" content="Alistair Gillespie" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The humble perceptron." />
+<meta property="og:description" content="The humble perceptron." />
+<link rel="canonical" href="http://alistairgillespie.io/deeplearning/2020/11/22/Perceptrons.html" />
+<meta property="og:url" content="http://alistairgillespie.io/deeplearning/2020/11/22/Perceptrons.html" />
+<meta property="og:site_name" content="Alistair Gillespie" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-22T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"http://alistairgillespie.io/deeplearning/2020/11/22/Perceptrons.html","@type":"BlogPosting","headline":"Deep learning from scratch … again","dateModified":"2020-11-22T00:00:00-06:00","datePublished":"2020-11-22T00:00:00-06:00","author":{"@type":"Person","name":"Alistair Gillespie"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://alistairgillespie.io/deeplearning/2020/11/22/Perceptrons.html"},"description":"The humble perceptron.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://alistairgillespie.io/feed.xml" title="Alistair Gillespie" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Alistair Gillespie</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Deep learning from scratch ... again</h1><p class="page-description">The humble perceptron.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-22T00:00:00-06:00" itemprop="datePublished">
+        Nov 22, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Alistair Gillespie</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#deeplearning">deeplearning</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-11-22-Perceptrons.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's start with one of, if not, the earliest form of a neural network - the perceptron. It make's sense to start here given modern day neural networks evolved from this point. The perceptron was inspired by neurons in the brain, the idea being that given a set of inputs, a neuron fires with an output. So how does it work? Let's visualise it first:</p>
+<center><img src="../images/perceptron.png" width="300" /></center><p>Here we can see a perceptron takes a set of binary inputs, $x_1,x_2,...,x_j$, and multiplies each input by an assigned weight $w_1, w_2 \text{,...,} w_j$. Each input's weight is based on importance; the larger the weight, the greater the importance of the input. To represent this algebraically, we get the following:</p>
+<p>
+$$ y = \sum_j w_jx_j$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If the output, $y$, is greater than a defined threshold, the output will be $1$, otherwise it will be $0$. So let's extend our equation to represent this:</p>
+$$
+output = \begin{cases}
+1 &amp; \text{if} &amp; \sum_j w_jx_j \gt \text{threshold} \\
+0 &amp; \text{if} &amp; \sum_j w_jx_j \le \text{threshold}
+\end{cases}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I think at this juncture we can cement this knowledge with an example. Let's use a perceptron as a decision making model for whether we go watch the West Coast Eagles versus North Melbourne Kangaroos. Our model will take in three binary inputs:</p>
+<ol>
+<li>Is it raining or not?</li>
+<li>Are any friends or family available to join us?</li>
+<li>Is the opponent a competitive side (i.e. top 8)?</li>
+</ol>
+<p>I don't like heading to the footy in the rain, in light of this we assign a weight of 6 to #1. Moreover, I like to have company when I head to the footy, so I assign a weight of 4 to #2. Lastly, I prefer to go to the important games against top 8 sides so we assign a weight of 2. We now have the following weights: $w_1=6, w_2=4, w_3=2$. For my decision threshold, I will assign a 5, in other words, if my model output is greater than 5 I will attend the footy.</p>
+<p>We are just informed that the weather is going to be sunny, however no friends or family are available to join me. And well, North Melbourne aren't the side they used to be, sitting last on the ladder. This provides the following inputs to my model: $x_1 = 1, x_2=0, x_3=0$. Let's go ahead and calculate the output:</p>
+<p>
+$$\ 6*1 + 4*0 + 2*0 = 6$$
+</p>
+<p>6 is greater than my threshold, we get a 1 as output, and I'm heading to the footy! The model clearly appreciates sunny weather and the availability of company, if neither are true, it's likely this model will suggest I stay home. I'm a little more passionate about the Eagles than this example let's on but you get the gist. It's important to note that by changing the weights and threshold, we will get different models of decision making.</p>
+<p>Perceptrons provide a building block for thinking about and building multi-layer networks. Like a web of lego, we can leverage perceptrons to build multi-layered models, like so:</p>
+<center><img src="../images/multi_layer_network.png" width="300" /></center>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above example illustrates an initial layer taking a set of inputs and producing a set of n decisions or outputs (4 in this case). The subsequent layer then takes those outputs as inputs to determine a final decision. We can think of the first layer as making a set of simple decisions, which then allows the next layer to conduct more subtle or complex decisions. This layered approach can be extended both by the number of layers and nodes to achieve complex and sophisticated decision making models.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To finish, we can put the final touches on how we represent the humble perceptron. We will move the threshold to the other side of the inequality, to introduce the bias ($b$), and exchange the sum for the dot product (enter linear algebra).</p>
+$$
+output = \begin{cases}
+1 &amp; \text{if} &amp; w.x + b \gt 0 \\
+0 &amp; \text{if} &amp; w.x + b \le 0
+\end{cases}
+$$
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="alistairwgillespie/"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/deeplearning/2020/11/22/Perceptrons.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blog about machine learning, AI, cybersecurity and sports.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/alistairwgillespie" title="alistairwgillespie"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/dizzy_data" title="dizzy_data"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
