@@ -125,7 +125,7 @@ window.onload = wrap_img;
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's start with one of, if not, the earliest form of a neural network - the perceptron. It make's sense to start here given modern day neural networks evolved from this point. The perceptron was inspired by neurons in the brain, the idea being that given a set of inputs, a neuron fires with an output. So how does it work? Let's visualise it first:</p>
+<p>Let's start with one of the earliest forms of machine learning, the perceptron. It make's sense to start here given modern day neural networks evolved from this point. The perceptron was inspired by neurons in the brain; the idea being that a neuron's functionality is represented using a function that takes a set of inputs and generates an output. So how does it work? Let's visualise it first:</p>
 <p><img src="/images/copied_from_nb/perceptrons_imgs/perceptron.png" alt="Perceptron" /></p>
 <p>Here we can see a perceptron takes a set of binary inputs, $x_1,x_2,...,x_j$, and multiplies each input by an assigned weight $w_1, w_2 \text{,...,} w_j$. Each input's weight is based on importance; the larger the weight, the greater the importance of the input. To represent this algebraically, we get the following:</p>
 <p>
@@ -137,7 +137,7 @@ $$ y = \sum_j w_jx_j$$
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If the output, $y$, is greater than a defined threshold, the output will be $1$, otherwise it will be $0$. So let's extend our equation to represent this:</p>
+<p>If the output, $y$, is greater than the defined threshold, the output will be $1$, otherwise it will be $0$. So let's extend our equation to represent this:</p>
 $$
 output = \begin{cases}
 1 &amp; \text{if} &amp; \sum_j w_jx_j \gt \text{threshold} \\
@@ -176,13 +176,20 @@ $$\ 6*1 + 4*0 + 2*0 = 6$$
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To finish, we can put the final touches on how we represent the humble perceptron. We will move the threshold to the other side of the inequality, to introduce the bias ($b$), and exchange the sum for the dot product (enter linear algebra).</p>
+<p>To finish, let's put the final touches on how we represent the perceptron mathematically. We will move the threshold to the other side of the inequality and introduce the bias ($b$), then lastly we will exchange the sum for the dot product - enter linear algebra. This prepares us nicely for some of the notation coming up in deep learning.</p>
 $$
 output = \begin{cases}
 1 &amp; \text{if} &amp; w.x + b \gt 0 \\
 0 &amp; \text{if} &amp; w.x + b \le 0
 \end{cases}
 $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This post was developed with the help of</p>
+<iframe src="https://open.spotify.com/embed/track/3xjaaBf7ef5TWermNspKOM?utm_source=generator" width="100%" height="380" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </div>
 </div>
 </div>
