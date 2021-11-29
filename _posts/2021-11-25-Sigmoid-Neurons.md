@@ -1,12 +1,12 @@
 ---
 keywords: fastai
-description: "Getting neural with Sigmoids."
+description: "Getting neural with the Sigmoid."
 title: "Sigmoid Neurons"
 toc: false
 branch: master
 badges: false
 tags: true
-image: images/copied_from_nb/sigmoid_imgs/sigmoid.png
+image: images/copied_from_nb/perceptrons_imgs/perceptron.png
 comments: true
 categories: [deeplearning]
 author: Alistair Gillespie
@@ -25,14 +25,21 @@ layout: notebook
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Perceptrons got a lot of folks excited back in the day. However, there are was a bit of a problem. Say we are trying to classify digits correctly using a network of perceptrons. Our model takes an input image of the digit "1", and incorrectly classifies it as a "2". Why don't we just go ahead and tweak the weights and bias to improve our model's classification? Well, we can, but by doing so we get unpredictable results. For example, say we do tune the parameters and correctly predict "1" in the next training run, but now our model is performing poorly on other digits. We've essentially kicked the can down the road, and our model begins to juggle between different weights and biases with no significant gains in accuracy across all digits. A big reason for this is that perceptrons are sensitive to changes in their parameters, even the slightest changes to the parameters produce a different output. Instead, we need a model that gives us greater control of the output so we are able to fine tune the model to achieve better performance. In other words, for any small change in the weights and bias, we only want a small change in the output.</p>
+<p>Perceptrons got a lot of folks excited back in the day. However, there are was a bit of a problem. Say we are trying to classify digits correctly using a network of perceptrons. Our model takes an input image of the digit "1", and incorrectly classifies it as a "2". Why don't we just go ahead and tweak the weights and bias to improve our model's classification? Well, we can, but by doing so we get unpredictable results. For example, say we do tune the parameters and correctly predict "1" in the next training run, but now our model is performing poorly on other digits. We've essentially kicked the can down the road, and our model begins to juggle between different weights and biases with no significant gains in accuracy across all digits.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With this simple idea, the sigmoid neuron was born. The math can be kinda scary at first but some generous folks have broken it down into edible chunks for us {% fn 1%}. I'll summarise for you. The sigmoid has similar qualities to a perceptron but a few key differences. Like it's sibling, the sigmoid neuron still takes inputs $x_1, x_2, ..., x_j$, however $x_j$ can be any value between $0$ and $1$ (e.g. 0.7456). Weights are still assigned to each input $w_1, w_2, ..., w_3$, and the overall bias remains. However, the output is no longer a 0 or 1, instead it's any number between 0 and 1 depending on the magnitude of $w.x + b$. This is because of the $\sigma$ being applied to get $\sigma(w.x +b)$. So what does the sigmoid part of it actually do? It does this:
+<p>This sensitivity to change quickly becomes unwieldy when tackling machine learning tasks, even the slightest change to the parameters will produce a completely different output. Instead, we need a model that gives us greater control of the output so we are able to fine tune the model to achieve better performance. In other words, for any small change in the weights and bias, we only want a small change in the output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With this simple idea, the sigmoid neuron was born. The math can be kinda scary at first but some generous folks have broken it down into edible chunks for us. I'll summarise for you. The sigmoid has similar qualities to a perceptron but a few key differences. Like it's sibling, the sigmoid neuron still takes inputs $x_1, x_2, ..., x_j$, however $x_j$ can be any value between $0$ and $1$ (e.g. 0.7456). Weights are still assigned to each input $w_1, w_2, ..., w_3$, and the overall bias remains. However, the output is no longer a 0 or 1, instead it's any number between 0 and 1 depending on the magnitude of $w.x + b$. This is because of the $\sigma$ being applied to get $\sigma(w.x +b)$. So what does the sigmoid part of it actually do? It does this:
 $$\sigma(z) \equiv \frac{1}{1+e^{-z}}$$</p>
 
 </div>
@@ -59,13 +66,6 @@ $$ \frac{1}{1 + \exp(-\sum_jw_jx_j-b)}$$
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This post was developed with the help of:</p>
 <iframe src="https://open.spotify.com/embed/track/7pLoI3XJLM67CGKAnOf5M5?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>{{ 'Michael Nielsen, Neural Networks and Deep Learning <a href="http://neuralnetworksanddeeplearning.com/chap1.html">link</a>'  | fndetail: 1 }}</p>
-
 </div>
 </div>
 </div>
