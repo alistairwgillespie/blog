@@ -39,7 +39,7 @@ layout: notebook
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With this simple idea, the sigmoid neuron was born. The math can be kinda scary at first but some generous folks have broken it down into edible chunks for us {% fn 1 %}. I'll summarise for you. The sigmoid has similar qualities to a perceptron but a few key differences. Like it's sibling, the sigmoid neuron still takes inputs $x_1, x_2, ..., x_j$, however $x_j$ can be any value between $0$ and $1$ (e.g. 0.7456). Weights are still assigned to each input $w_1, w_2, ..., w_3$, and the overall bias remains. However, the output is no longer a 0 or 1, instead it's any number between 0 and 1 depending on the magnitude of $w.x + b$. This is because of the $\sigma$ being applied to get $\sigma(w.x +b)$.</p>
+<p>With this simple idea, the sigmoid neuron was born. The math can be kinda scary at first but some generous folks have broken it down into edible chunks for us. I'll summarise for you. The sigmoid has similar qualities to a perceptron but a few key differences. Like it's sibling, the sigmoid neuron still takes inputs $x_1, x_2, ..., x_j$, however $x_j$ can be any value between $0$ and $1$ (e.g. 0.7456). Weights are still assigned to each input $w_1, w_2, ..., w_3$, and the overall bias remains. However, the output is no longer a 0 or 1, instead it's any number between 0 and 1 depending on the magnitude of $w.x + b$. This is because of the $\sigma$ being applied to get $\sigma(w.x +b)$.</p>
 
 </div>
 </div>
