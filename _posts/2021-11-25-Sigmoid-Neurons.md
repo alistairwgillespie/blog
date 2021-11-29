@@ -6,7 +6,7 @@ toc: false
 branch: master
 badges: false
 tags: true
-image: images/copied_from_nb/perceptrons_imgs/perceptron.png
+image: images/copied_from_nb/sigmoid_imgs/sigmoid_neuron.png
 comments: true
 categories: [deeplearning]
 author: Alistair Gillespie
@@ -47,7 +47,21 @@ $$\sigma(z) \equiv \frac{1}{1+e^{-z}}$$</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Before we simplify things, let's go another step further to make things more explicit. The output of a sigmoid neuron with the inputs, weights and bias detailed above is:
+<p>For good measure, let's draw a picture to visualise this:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/sigmoid_imgs/sigmoid_neuron.png" alt="Sigmoid Neuron"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's go another step further to make things more explicit. The output of a sigmoid neuron with the inputs, weights and bias detailed above is:
 {% raw %}
 $$ \frac{1}{1 + \exp(-\sum_jw_jx_j-b)}$$
 {% endraw %}</p>
@@ -66,6 +80,13 @@ $$ \frac{1}{1 + \exp(-\sum_jw_jx_j-b)}$$
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This post was developed with the help of:</p>
 <iframe src="https://open.spotify.com/embed/track/7pLoI3XJLM67CGKAnOf5M5?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{{ 'Michael Nielsen, Neural Networks and Deep Learning <a href="http://neuralnetworksanddeeplearning.com/chap1.html">link</a>'  | fndetail: 1 }}</p>
+
 </div>
 </div>
 </div>
